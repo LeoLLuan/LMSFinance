@@ -1,0 +1,121 @@
+﻿@model LMSFinance.Models.Student
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Student</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Student Id
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentId)
+        </dd>
+
+        <dt>
+            Student Name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentName)
+        </dd>
+
+        <dt>
+            Birthday
+        </dt>
+            
+        <dd>
+            @Html.DisplayFor(model => model.DoB)
+        </dd>
+
+        <dt>
+            Class
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClassName)
+        </dd>
+
+        <dt>
+            Grade
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GradeName)
+        </dd>
+
+        <dt>
+            Phone Number
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+
+        <dt>
+            Object
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Object)
+        </dd>
+
+        <dt>
+            School Fee
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SchoolFee)
+        </dd>
+
+        <dt>
+            Admission Date
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdmissionDate)
+        </dd>
+
+        <dt>
+            Status
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            Collected Money
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RealMoney)
+        </dd>
+
+        <dt>
+            Payment Date
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PaymentDate)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-primary" />
+            <a class="btn btn-primary" @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

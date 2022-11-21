@@ -1,0 +1,142 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<LMSFinance.Models.Subject>
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Subject";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Subject List</h2>
+@using (Html.BeginForm())
+{
+    <div>
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+    </div>
+
+
+    <form method="get" actions="/Student/Index">
+        <p>
+            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+            @Html.DropDownList("SearchSubject", new SelectList(ViewBag.DetailName, "Value", "Text"), "Select Subject", ViewBag.DetailName as string)
+            @Html.DropDownList("SearchFaculty", new SelectList(ViewBag.Faculties, "Value", "Text"), "Select Faculty", ViewBag.SchoolFaculty as string)
+            @Html.DropDownList("SearchStatus", (IEnumerable<SelectListItem>
+                )(new[] {
+                    new SelectListItem() { Text = "Coming Soon" },
+                    new SelectListItem() { Text = "Applying" },
+                    new SelectListItem() { Text = "Stop Applying" },
+                }), "Select Status", ViewBag.SearchStatus as string)
+            @Html.DropDownList("SearchYear", new SelectList(ViewBag.SchoolYears, "Value", "Text"), "Select School Year", ViewBag.SchoolYear as string)
+            <input type="submit" value="Search" class="btn btn-primary" />
+            <a class="btn btn-primary" href="~/Subject/Index">All Subject</a>
+        </p>
+    </form>
+}
+
+    <div class="btn-group">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            Select Action
+        </button>
+        <div class="dropdown-menu" style="text-align: center">
+            <p class="dropdown-item">
+                @Html.ActionLink("Export Excel", "ExportExcel")
+            </p>
+            <p class="dropdown-item">
+                @Html.ActionLink("Export CSV", "ExportCSV")
+            </p>
+        </div>
+    </div>
+
+    <p></p>
+
+    <table class="table">
+        <tr>
+            <th>
+                Subject ID
+                @Html.ActionLink("↑", "Index")
+                @Html.ActionLink("↓", "Index", new { sortOrder = ViewBag.SubIdDesSortParm })
+            </th>
+            <th>
+                Subject Name
+                @Html.ActionLink("↑", "Index", new { sortOrder = ViewBag.SubNameAsSortParm })
+                @Html.ActionLink("↓", "Index", new { sortOrder = ViewBag.SubNameDesSortParm })
+            </th>
+            <th>
+                Faculty
+                @Html.ActionLink("↑", "Index", new { sortOrder = ViewBag.FacultyAsSortParm })
+                @Html.ActionLink("↓", "Index", new { sortOrder = ViewBag.FacultyDesSortParm })
+            </th>
+            <th>
+                Duration
+                @Html.ActionLink("↑", "Index", new { sortOrder = ViewBag.DurAsSortParm })
+                @Html.ActionLink("↓", "Index", new { sortOrder = ViewBag.DurDesSortParm })
+            </th>
+            <th>
+                Unit
+                @Html.ActionLink("↑", "Index", new { sortOrder = ViewBag.UnitAsSortParm })
+                @Html.ActionLink("↓", "Index", new { sortOrder = ViewBag.UnitDesSortParm })
+            </th>
+            <th>
+                Fee Per Unit
+                @Html.ActionLink("↑", "Index", new { sortOrder = ViewBag.PerUnitAsSortParm })
+                @Html.ActionLink("↓", "Index", new { sortOrder = ViewBag.PerUnitDesSortParm })
+            </th>
+            <th>
+                Total
+                @Html.ActionLink("↑", "Index", new { sortOrder = ViewBag.TotalAsSortParm })
+                @Html.ActionLink("↓", "Index", new { sortOrder = ViewBag.TotalDesSortParm })
+            </th>
+            <th>
+                Status
+                @Html.ActionLink("↑", "Index", new { sortOrder = ViewBag.StatusAsSortParm })
+                @Html.ActionLink("↓", "Index", new { sortOrder = ViewBag.StatusDesSortParm })
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelitem => item.SubjectID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SubjectName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FacultyName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Duration)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Unit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PerUnit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalFee)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td class="btn-group dropright">
+                    <div class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        ⋮
+                    </div>
+                    <div class="dropdown-menu" style="text-align: center">
+                        <p> @Html.ActionLink("Edit", "Edit", new { id = item.SubjectID })</p>
+                        <p> @Html.ActionLink("Details", "Details", new { id = item.SubjectID })</p>
+                        <p> @Html.ActionLink("Collect Fee", "Form", new { id = item.SubjectID })</p>
+                        <p> @Html.ActionLink("Delete", "Delete", new { id = item.SubjectID })</p>
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

@@ -1,0 +1,88 @@
+﻿@model LMSFinance.Models.Subject
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Subject</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Subject Id
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubjectID)
+        </dd>
+
+        <dt>
+            Subject Name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubjectName)
+        </dd>
+
+        <dt>
+            Faculty
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FacultyName)
+        </dd>
+
+        <dt>
+            Duration
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Duration)
+        </dd>
+
+        <dt>
+            Unit
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Unit)
+        </dd>
+
+        <dt>
+            Fee Per Unit
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PerUnit)
+        </dd>
+
+        <dt>
+            Total
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalFee)
+        </dd>
+
+        <dt>
+            Status
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            School Year
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SchoolYear)
+        </dd>
+    </dl>
+</div>
+
+<a class="btn btn-primary" @Html.ActionLink("Edit", "Edit", new { id = Model.SubjectID })
+<a class="btn btn-primary" @Html.ActionLink("Back to List", "Index")

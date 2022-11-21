@@ -1,0 +1,43 @@
+﻿@model LMSFinance.Models.SubmitForm
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4>SubmitForm</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.NO)
+
+    <div class="form-group">
+        <div class="control-label col-md-2">Student Id</div>
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.StudentId, new SelectList(ViewBag.StudentIds, "Value", "Text"), "Select Student ID", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.StudentId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="control-label col-md-2">Subject Name</div>
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.SubjectName, new SelectList(ViewBag.SubjectsNames, "Value", "Text"), "Select Subject Name", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.SubjectName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-primary" />
+            <a class="btn btn-primary" @Html.ActionLink("Back to List", "Index")
+
+        </div>
+    </div>
+</div>
+}

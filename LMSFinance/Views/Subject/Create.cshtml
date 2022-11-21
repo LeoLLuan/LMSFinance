@@ -1,0 +1,99 @@
+﻿@model LMSFinance.Models.Subject
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Subject</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <div class="control-label col-md-2">Subject ID</div>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.SubjectID, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.DisplayFor(model => model.SubjectID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="control-label col-md-2">Subject Name</div>
+        <div class="col-md-10">
+                @Html.DropDownListFor(m => m.SubjectName, new SelectList(ViewBag.DetailName, "Value", "Text"), "Select Subject Name", new { @class = "form-control" })
+        </div>
+    </div>
+
+        <div class="form-group">
+            <div class="col-md-2 control-label">School Year </div>
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.FacultyName, new SelectList(ViewBag.Faculties, "Value", "Text"), "Select Faculties", new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label col-md-2">Duration</div>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Duration, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label col-md-2">Unit</div>
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.DropDownListFor(m => m.Unit, (IEnumerable<SelectListItem>
+                        )(new[] {
+                        new SelectListItem() { Text = "Subjects" },
+                        new SelectListItem() { Text = "Credits" },
+                        }), "Select Unit", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Unit, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label col-md-2">Fee Per Unit</div>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PerUnit, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PerUnit, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label col-md-2">Status</div>
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.DropDownListFor(m => m.Status, (IEnumerable<SelectListItem>
+                        )(new[] {
+                        new SelectListItem() { Text = "Coming Soon" },
+                        new SelectListItem() { Text = "Applying" },
+                        new SelectListItem() { Text = "Stop Applying" },
+                        }), "Select Unit", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Status, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-2 control-label">School Year </div>
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.SchoolYear, new SelectList(ViewBag.SchoolYears, "Value", "Text"), new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.SchoolYear, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                <a class="btn btn-primary" @Html.ActionLink("Back to List", "Index")
+            </div>
+        </div>
+    </div>
+}

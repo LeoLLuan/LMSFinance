@@ -1,0 +1,160 @@
+﻿@model LMSFinance.Models.Student
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.StudentId, new { @class = "text-danger" })
+
+<div class="form-horizontal">
+    <h4>Student</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        <div class="control-label col-md-2">Student Name</div>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.StudentName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.StudentName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="control-label col-md-2">Birthday</div>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.DoB, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.DoB, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="control-label col-md-2">Grade</div>
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.GradeName, new SelectList(ViewBag.StudentGrades, "Value", "Text"), "Select Grade", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.GradeName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="control-label col-md-2">Class</div>
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.DropDownListFor(m => m.ClassName, (IEnumerable<SelectListItem>
+                              )(new[] {
+                    new SelectListItem() { Text = "6A" },
+                    new SelectListItem() { Text = "6B" },
+                    new SelectListItem() { Text = "6C" },
+                    new SelectListItem() { Text = "6D" },
+                    new SelectListItem() { Text = "6E" },
+                    new SelectListItem() { Text = "6F" },
+                    new SelectListItem() { Text = "7A" },
+                    new SelectListItem() { Text = "7B" },
+                    new SelectListItem() { Text = "7C" },
+                    new SelectListItem() { Text = "7D" },
+                    new SelectListItem() { Text = "7E" },
+                    new SelectListItem() { Text = "7F" },
+                    new SelectListItem() { Text = "8A" },
+                    new SelectListItem() { Text = "8B" },
+                    new SelectListItem() { Text = "8C" },
+                    new SelectListItem() { Text = "8D" },
+                    new SelectListItem() { Text = "8E" },
+                    new SelectListItem() { Text = "8F" },
+                    new SelectListItem() { Text = "9A" },
+                    new SelectListItem() { Text = "9B" },
+                    new SelectListItem() { Text = "9C" },
+                    new SelectListItem() { Text = "9D" },
+                    new SelectListItem() { Text = "9E" },
+                    new SelectListItem() { Text = "9F" },
+                              }), "Select Class", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ClassName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="control-label col-md-2">Phone Number</div>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="control-label col-md-2">Object</div>
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.DropDownListFor(m => m.Object, (IEnumerable<SelectListItem>
+                              )(new[] {
+                    new SelectListItem() { Text = "None" },
+                    new SelectListItem() { Text = "10%" },
+                    new SelectListItem() { Text = "20%" },
+                    new SelectListItem() { Text = "25%" },
+                    new SelectListItem() { Text = "30%" },
+                    new SelectListItem() { Text = "40%" },
+                    new SelectListItem() { Text = "50%" },
+                    new SelectListItem() { Text = "60%" },
+                    new SelectListItem() { Text = "70%" },
+                    new SelectListItem() { Text = "75%" },
+                    new SelectListItem() { Text = "80%" },
+                    new SelectListItem() { Text = "90%" },
+                    new SelectListItem() { Text = "100%" },
+                              }), "Select Object", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Object, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="control-label col-md-2">Student Fee</div>
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.SchoolFee, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="control-label col-md-2">AdmissionDate</div>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.AdmissionDate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.AdmissionDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="control-label col-md-2">Stutus</div>
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.DropDownList("Status", new SelectList(Enum.GetValues(typeof(LMSFinance.Controllers.StudentController.Status))), "Select Status", new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="control-label col-md-2">Claimed Money</div>
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.RealMoney, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="control-label col-md-2">Payment Date</div>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.PaymentDate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.PaymentDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-primary" />
+            <a class="btn btn-primary" @Html.ActionLink("Back to List", "Index")
+        </div>
+    </div>
+</div>
+}
+
+

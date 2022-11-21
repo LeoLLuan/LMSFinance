@@ -1,0 +1,44 @@
+﻿@model IEnumerable<LMSFinance.Models.SubmitForm>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Student Id
+        </th>
+        <th>
+            Student Name
+        </th>
+        <th>
+            Submitted Subject Name
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.StudentId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StudentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubjectName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.NO }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.NO })
+        </td>
+    </tr>
+}
+
+</table>

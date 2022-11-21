@@ -1,0 +1,88 @@
+﻿@model LMSFinance.Models.FormModel
+
+@{
+    ViewBag.Title = "Form";
+}
+
+<h2>Form</h2>
+@using (Html.BeginForm())
+{
+    <div>
+        <h5> Student Info</h5>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Student ID</th>
+                    <th>Student Name</th>
+                    <th>Date of Birth</th>
+                    <th>Grade</th>
+                    <th>Class</th>
+                    <th>Phone Number</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Studentss)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.StudentId)</td>
+                        <td>@Html.DisplayFor(modelItem => item.StudentName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.DoB)</td>
+                        <td>@Html.DisplayFor(modelItem => item.GradeName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.ClassName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <h5>Submitted Subject</h5>
+        <table class="table">
+            <thead>
+            <th>Subject ID</th>
+            <th>Subject Name</th>
+            <th>Duration</th>
+            <th>Unit</th>
+            <th>Fee</th>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Subjectss)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.SubjectID)</td>
+                        <td>@Html.DisplayFor(modelItem => item.SubjectName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Duration)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Unit)</td>
+                        <td>@Html.DisplayFor(modelItem => item.TotalFee)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <h5>Claimed Fee Receipt</h5>
+        <table class="table">
+            <thead>
+            <th>Total Duration</th>
+            <th>Fee Per Unit</th>
+            <th>Total School Fee</th>
+            <th>DiscountObject</th>
+            <th>CollectedDate</th>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Receipts)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.TotalDuration)</td>
+                        <td>@Html.DisplayFor(modelItem => item.FeePerUnit)</td>
+                        <td>@Html.DisplayFor(modelItem => item.TotalSchoolFee)</td>
+                        <td>@Html.DisplayFor(modelItem => item.DiscountObject)</td>
+                        <td>@Html.DisplayFor(modelItem => item.CollectedDate)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+

@@ -1,0 +1,209 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<LMSFinance.Models.Student>
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+
+@{
+    ViewBag.Title = "Students";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Student List</h2>
+<div>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+</div>
+
+@using (Html.BeginForm())
+{
+    <form method="get" actions="/Student/Index">
+        <p>
+            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+            @Html.DropDownList("SearchGrade", new SelectList(ViewBag.StudentGrades, "Value", "Text"), "Select Subject", ViewBag.StudentGrades as string)
+
+            @Html.DropDownList("SearchClass", (IEnumerable<SelectListItem>
+                         )(new[] {
+                    new SelectListItem() { Text = "6A" },
+                    new SelectListItem() { Text = "6B" },
+                    new SelectListItem() { Text = "6C" },
+                    new SelectListItem() { Text = "6D" },
+                    new SelectListItem() { Text = "6E" },
+                    new SelectListItem() { Text = "6F" },
+                    new SelectListItem() { Text = "7A" },
+                    new SelectListItem() { Text = "7B" },
+                    new SelectListItem() { Text = "7C" },
+                    new SelectListItem() { Text = "7D" },
+                    new SelectListItem() { Text = "7E" },
+                    new SelectListItem() { Text = "7F" },
+                    new SelectListItem() { Text = "8A" },
+                    new SelectListItem() { Text = "8B" },
+                    new SelectListItem() { Text = "8C" },
+                    new SelectListItem() { Text = "8D" },
+                    new SelectListItem() { Text = "8E" },
+                    new SelectListItem() { Text = "8F" },
+                    new SelectListItem() { Text = "9A" },
+                    new SelectListItem() { Text = "9B" },
+                    new SelectListItem() { Text = "9C" },
+                    new SelectListItem() { Text = "9D" },
+                    new SelectListItem() { Text = "9E" },
+                    new SelectListItem() { Text = "9F" },
+                             }), "Select Class", ViewBag.SearchClass as string)
+
+            @Html.DropDownList("SearchObject", (IEnumerable<SelectListItem>
+                         )(new[] {
+                    new SelectListItem() { Text = "None" },
+                    new SelectListItem() { Text = "10%" },
+                    new SelectListItem() { Text = "20%" },
+                    new SelectListItem() { Text = "25%" },
+                    new SelectListItem() { Text = "30%" },
+                    new SelectListItem() { Text = "40%" },
+                    new SelectListItem() { Text = "50%" },
+                    new SelectListItem() { Text = "60%" },
+                    new SelectListItem() { Text = "70%" },
+                    new SelectListItem() { Text = "75%" },
+                    new SelectListItem() { Text = "80%" },
+                    new SelectListItem() { Text = "90%" },
+                    new SelectListItem() { Text = "100%" },
+                             }), "Select Object", ViewBag.SearchObject as string)
+
+            @Html.DropDownList("SearchStatus", (IEnumerable<SelectListItem>
+                        )(new[] {
+                   new SelectListItem() { Text = "Processing" },
+                   new SelectListItem() { Text = "Finished" },
+                            }), "Select Status", ViewBag.SearchStatus as string)
+            <input type="submit" value="Search" class="btn btn-primary" />
+            <a class="btn btn-primary" href="~/Student/Index">All Student</a>
+        </p>
+    </form>
+}
+
+<div class="btn-group">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        Select Action
+    </button>
+    <div class="dropdown-menu" style="text-align: center">
+        <p class="dropdown-item">
+            @Html.ActionLink("Export Excel", "ExportExcel")
+        </p>
+        <p class="dropdown-item">
+            @Html.ActionLink("Export CSV", "ExportCSV")
+        </p>
+    </div>
+</div>
+
+<p></p>
+
+<table class="table" style="font-size:13px">
+    <tr>
+        <th style="width:9%">
+            Student Id
+            @Html.ActionLink("↑", "Index")
+            @Html.ActionLink("↓", "Index", new { sortOrder = ViewBag.StuIdDesSortParm })
+        </th>
+        <th style="width:11%">
+            Student Name
+            @Html.ActionLink("↑", "Index", new { sortOrder = ViewBag.StuNameAsSortParm })
+            @Html.ActionLink("↓", "Index", new { sortOrder = ViewBag.StuNameDesSortParm })
+        </th>
+        <th style="width:7%">
+            Class
+            @Html.ActionLink("↑", "Index", new { sortOrder = ViewBag.ClassAsSortParm })
+            @Html.ActionLink("↓", "Index", new { sortOrder = ViewBag.ClassDesSortParm })
+        </th>
+        <th style="width:7%">
+            Grade
+            @Html.ActionLink("↑", "Index", new { sortOrder = ViewBag.GradeAsSortParm })
+            @Html.ActionLink("↓", "Index", new { sortOrder = ViewBag.GradeDesSortParm })
+        </th>
+        <th style="width:7%">
+            Phone
+            @Html.ActionLink("↑", "Index", new { sortOrder = ViewBag.StuPhoneAsSortParm })
+            @Html.ActionLink("↓", "Index", new { sortOrder = ViewBag.StuPhoneDesSortParm })
+        </th>
+        <th style="width:7%">
+            Object
+            @Html.ActionLink("↑", "Index", new { sortOrder = ViewBag.ObjectAsSortParm })
+            @Html.ActionLink("↓", "Index", new { sortOrder = ViewBag.ObjectDesSortParm })
+        </th>
+        <th style="width:9%">
+            School Fee
+            @Html.ActionLink("↑", "Index", new { sortOrder = ViewBag.SchFeeAsSortParm })
+            @Html.ActionLink("↓", "Index", new { sortOrder = ViewBag.SchFeeDesSortParm })
+        </th>
+        <th style="width:12%">
+            Admission Date
+            @Html.ActionLink("↑", "Index", new { sortOrder = ViewBag.AdDateAsSortParm })
+            @Html.ActionLink("↓", "Index", new { sortOrder = ViewBag.AdDateDesSortParm })
+        </th>
+        <th style="width:5%">
+            Status
+            @Html.ActionLink("↑", "Index", new { sortOrder = ViewBag.StatusAsSortParm })
+            @Html.ActionLink("↓", "Index", new { sortOrder = ViewBag.StatusDesSortParm })
+        </th>
+        <th style="width:10%">
+            Claimed Fee
+            @Html.ActionLink("↑", "Index", new { sortOrder = ViewBag.CFeeAsSortParm })
+            @Html.ActionLink("↓", "Index", new { sortOrder = ViewBag.CFeeDesSortParm })
+        </th>
+        <th style="width:11%">
+            Payment Date
+            @Html.ActionLink("↑", "Index", new { sortOrder = ViewBag.PayAsSortParm })
+            @Html.ActionLink("↓", "Index", new { sortOrder = ViewBag.PayDesSortParm })
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClassName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GradeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Object)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SchoolFee)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AdmissionDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RealMoney)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentDate)
+            </td>
+            <td class="btn-group dropright">
+                <div class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    ⋮
+                </div>
+                <div class="dropdown-menu" style="text-align: center">
+                    <p> @Html.ActionLink("Edit", "Edit", new { id = item.StudentId })</p>
+                    <p> @Html.ActionLink("Details", "Details", new { id = item.StudentId})</p>
+                    <p> @Html.ActionLink("Collect Fee", "Form", new { id = item.StudentId })</p>
+                    <p> @Html.ActionLink("Delete", "Delete", new { id = item.StudentId })</p>
+                </div>
+            </td>
+        </tr>
+    }
+</table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter}))

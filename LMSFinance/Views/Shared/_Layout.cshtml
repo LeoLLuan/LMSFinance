@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="Style.css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body style="font-family:'Times New Roman'">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" title="more options">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Alta Media", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        @if (User.IsInRole("Kế Toán Trưởng"))
+                        {
+                            @Html.ActionLink("Role", "Index", "Role")
+                        }
+                    </li>
+                    <li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            if (User.IsInRole("Kế Toán Trưởng"))
+                            {
+                                @Html.ActionLink("Student", "Index", "Student")
+                            }
+                            else if (User.IsInRole("Kế Toán Ghi Danh"))
+                            {
+                                @Html.ActionLink("Student", "Index", "Student")
+                            }
+                        }
+                    </li>
+                    <li class="dropdown">
+                        <button class="dropbtn">Student Info Adding</button>
+                        <div class="dropdown-content">
+                            <a @Html.ActionLink("School Year", "Index", "StudyYear")</a>
+                            <a @Html.ActionLink("Faculty", "Index", "Faculty")</a>
+                            <a @Html.ActionLink("Subject Submit", "Index", "SubmitForm")</a>
+                            <a @Html.ActionLink("Grade", "Index", "Grade")</a>
+                        </div>
+                    </li>
+
+                    <li class="dropdown">
+                        <button class="dropbtn">School Fee Management</button>
+                        <div class="dropdown-content">
+                            <a @Html.ActionLink("Subject Fee", "Index", "Subject")</a>
+                            <a @Html.ActionLink("Collect Fee Management", "Index", "Student")</a>
+                            <a @Html.ActionLink("Print Collect Fee Form", "Index", "Grade")</a>
+                        </div>
+                    </li>
+
+                    <li>
+                        @Html.ActionLink("Student", "Index", "Student")
+                    </li>
+                    <li>
+                        @Html.ActionLink("Subject", "Index", "Subject")
+                    </li>
+                    <li>
+                        @Html.ActionLink("Role", "Index", "Role")
+                    </li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
