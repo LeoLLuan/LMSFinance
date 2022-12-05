@@ -1,0 +1,133 @@
+﻿@model LMSFinance.Models.FormModel
+
+@{
+    ViewBag.Title = "Print";
+}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+@using (Html.BeginForm())
+{
+    <head>
+        <script type="text/javascript">
+            function PrintPanel() {
+                var panel = document.getElementById("<%=pnlContents.ClientID %>");
+                var printWindow = window.open('', '', 'height=400,width=800');
+                printWindow.document.write('<html><head><title>DIV Contents</title>');
+                printWindow.document.write('</head><body >');
+                printWindow.document.write(panel.innerHTML);
+                printWindow.document.write('</body></html>');
+                printWindow.document.close();
+                setTimeout(function () {
+                    printWindow.print();
+                }, 500);
+                return false;
+            }
+        </script>
+        <style>
+            .printPaper {
+                margin: auto;
+                border-style: solid;
+                padding: 20px;
+                height: 600px;
+                width: 900px;
+            }
+
+            .a {
+                text-align: center;
+                float: left;
+            }
+
+            .b {
+                text-align: center;
+                float: right;
+            }
+
+            .c {
+                float: auto;
+                text-align: center;
+            }
+
+            .f {
+                float: left;
+                text-align: center;
+                width: 300px;
+            }
+
+            .g {
+                float: right;
+                text-align: center;
+                width: 300px;
+            }
+
+            .column1 {
+                text-align: center;
+                width: 800px;
+                height: 150px;
+            }
+
+            .column2 {
+                text-align: center;
+                width: 800px;
+                height: 150px;
+            }
+        </style>
+    </head>
+    <br />
+    <body id="pnlContents">
+        <div class="printPaper">
+            <div>
+                <p>Unit: ..........</p>
+                <p>QHNS Code:.........</p>
+            </div>
+            <center>
+                <h3><b>Receipt</b></h3>
+                <p>............................, 2022</p>
+            </center>
+            <div>
+                <p>Full Name:     .............................................</p>
+                <p>Address:       ...............................................</p>
+                <p>Content:       ................................................</p>
+                <p>Money:         ....................................................................................(by words):.......................................................................................................................</p>
+                <p>Attach to:     ....................................................................................Original documents:</p>
+            </div>
+            <div class="column1">
+                <div class="f">
+                    <p> </p>
+                    <p><b>Submitter</b></p>
+                    <p>(Sign and write full name)</p>
+                </div>
+                <div class="g">
+                    <p>................, 2022</p>
+                    <p><b>Creator</b></p>
+                    <p>(Sign, write full name and mark)</p>
+                </div>
+            </div>
+            <div class="column2">
+                <div class="a">
+                    <p><b>Unit heads</b></p>
+                    <p>(Sign, write full name and mark)</p>
+                </div>
+                <div class="b">
+                    <p><b>Chief accountant</b></p>
+                    <p>(Sign, write full name and mark)</p>
+                </div>
+                <div class="c">
+                    <p><b>Treasurer</b></p>
+                    <p>(Sign, write full name)</p>
+                </div>
+            </div>
+        </div>
+    </body>
+    <div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button class="btn btn-primary" ID="btnPrint" runat="server" Text="Print" OnClientClick="return PrintPanel();"> Print</button>
+                <a class="btn btn-primary" @Html.ActionLink("Back to List", "Index")
+            </div>
+        </div>
+    </div>
+}
+
+
+</html>

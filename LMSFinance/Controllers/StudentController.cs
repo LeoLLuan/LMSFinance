@@ -25,6 +25,8 @@ using DocumentFormat.OpenXml.Bibliography;
 using Microsoft.Ajax.Utilities;
 using DocumentFormat.OpenXml.EMMA;
 using PagedList;
+using System.Windows;
+using DocumentFormat.OpenXml.Office2010.Excel;
 
 namespace LMSFinance.Controllers
 {
@@ -39,15 +41,21 @@ namespace LMSFinance.Controllers
             //Declare Database as students
             var students = from s in db.Students select s;
 
-            //Declare Subject Name
+            //Declare Grade
             List<SelectListItem> studentGrade = new List<SelectListItem>();
-            var grade = from d in db.Grades select d;
-            foreach (var gra in grade)
+            foreach (var gra in db.Grades)
             {
                 studentGrade.Add(new SelectListItem() { Value = gra.GradeName, Text = gra.GradeName });
             }
-
             ViewBag.StudentGrades = studentGrade;
+
+            //Declare Object
+            List<SelectListItem> Objects = new List<SelectListItem>();
+            foreach (var oj in db.Discounts)
+            {
+                Objects.Add(new SelectListItem() { Value = oj.Discounts, Text = oj.Discounts });
+            }
+            ViewBag.Objects = Objects;
 
             //Pagination
             if (searchString != null)
@@ -211,15 +219,23 @@ namespace LMSFinance.Controllers
         // GET: Student/Create
         public ActionResult Create()
         {
-            //Declare Subject Name
+            //Create Grade
             List<SelectListItem> studentGrade = new List<SelectListItem>();
-            var grade = from d in db.Grades select d;
-            foreach (var gra in grade)
+            var Grades = from s in db.Grades select s;
+            foreach (var gra in Grades)
             {
                 studentGrade.Add(new SelectListItem() { Value = gra.GradeName, Text = gra.GradeName });
             }
 
             ViewBag.StudentGrades = studentGrade;
+
+            //Declare Object
+            List<SelectListItem> Objects = new List<SelectListItem>();
+            foreach (var oj in db.Discounts)
+            {
+                Objects.Add(new SelectListItem() { Value = oj.Discounts, Text = oj.Discounts });
+            }
+            ViewBag.Objects = Objects;
 
             return View();
         }
@@ -227,21 +243,29 @@ namespace LMSFinance.Controllers
         // POST: Student/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "StudentId,StudentName,DoB,ClassName,GradeName,SchoolFee,PhoneNumber,AdmissionDate,Status,RealMoney,PaymentDate")] Student student)
+        public async Task<ActionResult> Create([Bind(Include = "StudentId,StudentName,DoB,ClassName,GradeName,SchoolFee,Object,PhoneNumber,AdmissionDate,Status,RealMoney,PaymentDate")] Student student)
         {
+            //Create Grade
+            List<SelectListItem> studentGrade = new List<SelectListItem>();
+            var Grades = from s in db.Grades select s;
+            foreach (var gra in Grades)
+            {
+                studentGrade.Add(new SelectListItem() { Value = gra.GradeName, Text = gra.GradeName });
+            }
+            ViewBag.StudentGrades = studentGrade;
+
+
+            //Declare Object
+            List<SelectListItem> Objects = new List<SelectListItem>();
+            foreach (var oj in db.Discounts)
+            {
+                Objects.Add(new SelectListItem() { Value = oj.Discounts, Text = oj.Discounts });
+            }
+            ViewBag.Objects = Objects;
+
+
             if (ModelState.IsValid)
             {
-                //Create Subject Name
-                List<SelectListItem> studentGrade = new List<SelectListItem>();
-                var grade = from d in db.Grades select d;
-                foreach (var gra in grade)
-                {
-                    studentGrade.Add(new SelectListItem() { Value = gra.GradeName, Text = gra.GradeName });
-                }
-
-                ViewBag.StudentGrades = studentGrade;
-
-                //Auto fill Student Fee
                 //Auto fill Student Fee
                 List<SubmitForm> submitForms = new List<SubmitForm>();
                 List<Subject> subjects = new List<Subject>();
@@ -276,15 +300,15 @@ namespace LMSFinance.Controllers
                 }
                 else
                 {
-                    string character = student.Object;
-                    if (character.Length == 4)
+
+                    if (student.Object.Length == 4)
                     {
-                        string cutCharacter = character.Substring(0, 3);
+                        string cutCharacter = student.Object.Substring(0, 3);
                         student.RealMoney = student.SchoolFee - (student.SchoolFee / 100 * cutCharacter.ToInt());
                     }
-                    if (character.Length == 3)
+                    if (student.Object.Length == 3)
                     {
-                        string cutCharacter = character.Substring(0, 2);
+                        string cutCharacter = student.Object.Substring(0, 2);
                         student.RealMoney = student.SchoolFee - (student.SchoolFee / 100 * cutCharacter.ToInt());
                     }
                 }
@@ -300,15 +324,23 @@ namespace LMSFinance.Controllers
         // GET: Student/Edit/5
         public async Task<ActionResult> Edit(string id)
         {
-            //Declare Subject Name
+            //Declare Grade
             List<SelectListItem> studentGrade = new List<SelectListItem>();
-            var grade = from d in db.Grades select d;
-            foreach (var gra in grade)
+            foreach (var gra in db.Grades)
             {
                 studentGrade.Add(new SelectListItem() { Value = gra.GradeName, Text = gra.GradeName });
             }
 
             ViewBag.StudentGrades = studentGrade;
+
+
+            //Declare Object
+            List<SelectListItem> Objects = new List<SelectListItem>();
+            foreach (var oj in db.Discounts)
+            {
+                Objects.Add(new SelectListItem() { Value = oj.Discounts, Text = oj.Discounts });
+            }
+            ViewBag.Objects = Objects;
 
             if (id == null)
             {
@@ -332,52 +364,51 @@ namespace LMSFinance.Controllers
             {
                 db.Entry(student).State = EntityState.Modified;
 
-            //Auto fill Student Fee
-            List<SubmitForm> submitForms = new List<SubmitForm>();
-            List<Subject> subjects = new List<Subject>();
+                //Auto fill Student Fee
+                List<SubmitForm> submitForms = new List<SubmitForm>();
+                List<Subject> subjects = new List<Subject>();
 
-            foreach (var smfs in db.SubmitForms)
-            {
-                submitForms.Add(smfs);
-            }
-            foreach (var sjfs in db.Subjects)
-            {
-                subjects.Add(sjfs);
-            }
-
-            foreach (var submit in submitForms)
-            {
-                if (submit.StudentId == student.StudentId)
+                foreach (var smfs in db.SubmitForms)
                 {
-                    foreach (var suf in subjects)
+                    submitForms.Add(smfs);
+                }
+                foreach (var sjfs in db.Subjects)
+                {
+                    subjects.Add(sjfs);
+                }
+
+                foreach (var submit in submitForms)
+                {
+                    if (submit.StudentId == student.StudentId)
                     {
-                        if (submit.SubjectName == suf.SubjectName)
+                        foreach (var suf in subjects)
                         {
-                            student.SchoolFee += suf.TotalFee;
+                            if (submit.SubjectName == suf.SubjectName)
+                            {
+                                student.SchoolFee += suf.TotalFee;
+                            }
                         }
                     }
                 }
-            }
 
-            //Auto fill Real Fee
-            if (student.Object == "None")
-            {
-                student.RealMoney = student.SchoolFee;
-            }
-            else
-            {
-                string character = student.Object;
-                if (character.Length == 4)
+                //Auto fill Real Fee
+                if (student.Object == "None")
                 {
-                    string cutCharacter = character.Substring(0, 3);
-                    student.RealMoney = student.SchoolFee - (student.SchoolFee / 100 * cutCharacter.ToInt());
+                    student.RealMoney = student.SchoolFee;
                 }
-                if (character.Length == 3)
+                else
                 {
-                    string cutCharacter = character.Substring(0, 2);
-                    student.RealMoney = student.SchoolFee - (student.SchoolFee / 100 * cutCharacter.ToInt());
+                    if (student.Object.Length == 4)
+                    {
+                        string cutCharacter = student.Object.Substring(0, 3);
+                        student.RealMoney = student.SchoolFee - (student.SchoolFee / 100 * cutCharacter.ToInt());
+                    }
+                    if (student.Object.Length == 3)
+                    {
+                        string cutCharacter = student.Object.Substring(0, 2);
+                        student.RealMoney = student.SchoolFee - (student.SchoolFee / 100 * cutCharacter.ToInt());
+                    }
                 }
-            }
 
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -500,16 +531,34 @@ namespace LMSFinance.Controllers
             return File(content, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "student.xlsx");
         }
 
-
-        public async Task<ActionResult> Form(string id, [Bind(Include = "TotalDuration,FeePerUnit,TotalSchoolFee,CollectMethod,DiscountObject,Sale," +
-            "SaleType,TotalSubFeeCheck,TotalSubFee,SubFeeDescription,CollectedDate,Money")] Receipt receipt)
+        //GET: Student/Form
+        static FormModel FormModels = new FormModel();
+        public ActionResult Form(string id, Receipt receipt)
         {
-            Student student = await db.Students.FindAsync(id);
+            if (User.Identity.GetUserId() == null)
+            {
+                return HttpNotFound();
+            }
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Student student = db.Students.Find(id);
+            if (student == null)
+            {
+                return HttpNotFound();
+            }
+
+            List<SelectListItem> Present = new List<SelectListItem>();
+            foreach (var pre in db.Presents)
+            {
+                Present.Add(new SelectListItem() { Value = pre.Presents, Text = pre.Presents });
+            }
+            ViewBag.Present = Present;
 
             //Create Storage List
             var Subject = new List<Subject>();
             var Student = new List<Student>();
-            var Form = new List<SubmitForm>();
             var Receipt = new List<Receipt>();
 
             //Create Compared List
@@ -556,8 +605,10 @@ namespace LMSFinance.Controllers
             //Compare to take receipt table
             foreach (var sf in Forms)
             {
-                if (student.StudentId == id)
+                if (sf.StudentId == id)
                 {
+                    receipt.StudentID = sf.StudentId;
+                    receipt.StudentName = sf.StudentName;
                     foreach (var su in Subjects)
                     {
                         if (sf.SubjectName == su.SubjectName)
@@ -566,28 +617,70 @@ namespace LMSFinance.Controllers
                             receipt.FeePerUnit = su.PerUnit;
                             receipt.TotalSchoolFee += su.TotalFee;
                             receipt.DiscountObject = student.Object.ToString();
+
+                            if (receipt.DiscountObject == "None")
+                            {
+                                receipt.Money = student.SchoolFee;
+                            }
+
+                            else
+                            {
+                                if (receipt.DiscountObject.Length == 4)
+                                {
+                                    string cutCharacter = student.Object.Substring(0, 3);
+                                    receipt.Money = receipt.TotalSchoolFee - (receipt.TotalSchoolFee / 100 * cutCharacter.ToInt());
+                                }
+                                if (receipt.DiscountObject.Length == 3)
+                                {
+                                    string cutCharacter = student.Object.Substring(0, 2);
+                                    receipt.Money = receipt.TotalSchoolFee - (receipt.TotalSchoolFee / 100 * cutCharacter.ToInt());
+                                }
+                            }
                         }
                     }
                     receipt.CollectedDate = DateTime.Now;
-
                 }
             }
 
+            foreach (var user in db.Users)
+            {
+                if (user.Id == User.Identity.GetUserId())
+                {
+                    receipt.Collecter = user.FullName;
+                }
+            };
 
-
-            db.Receipts.Add(receipt);
-            await db.SaveChangesAsync();
-
-            Receipt.Add(receipt);
-
-            //Add List to Model
-            FormModel FormModels = new FormModel();
             FormModels.Subjectss = Subject;
             FormModels.Studentss = Student;
-            FormModels.Receipts = Receipt;
+            FormModels.Receipt = receipt;
 
             //Show Model
             return View(FormModels);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Form([Bind(Include = "NO,Collecter,StudentID,StudentName,TotalDuration,FeePerUnit," +
+            "TotalSchoolFee,CollectMethod,DiscountObject,Sale,SaleType,TotalSubFeeCheck,TotalSubFee,SubFeeDescription,CollectedDate,Money")]  Receipt Receipt)
+        {
+            if (ModelState.IsValid)
+            {
+                Receipt.NO = FormModels.Receipt.NO;
+                Receipt.CollectedDate = FormModels.Receipt.CollectedDate;
+                Receipt.FeePerUnit = FormModels.Receipt.FeePerUnit;
+                Receipt.TotalSchoolFee = FormModels.Receipt.TotalSchoolFee;
+                Receipt.DiscountObject= FormModels.Receipt.DiscountObject;
+                Receipt.StudentID = FormModels.Receipt.StudentID;
+                Receipt.StudentName= FormModels.Receipt.StudentName;
+                Receipt.Collecter = FormModels.Receipt.Collecter;
+                Receipt.Money = FormModels.Receipt.Money;
+                Receipt.TotalDuration = FormModels.Receipt.TotalDuration;
+
+                db.Receipts.Add(Receipt);
+                await db.SaveChangesAsync();
+                return View("Print");
+            }
+            return View(Receipt);
         }
     }
 }

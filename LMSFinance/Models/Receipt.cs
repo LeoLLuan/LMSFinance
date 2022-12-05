@@ -13,6 +13,12 @@ namespace LMSFinance.Models
         [Key]
         public int NO { get; set; }
 
+        public string Collecter { get; set; }
+
+        public string StudentID { get; set; }
+
+        public string StudentName { get; set; }
+
         public int TotalDuration { get; set; }
 
         public int FeePerUnit { get; set; }

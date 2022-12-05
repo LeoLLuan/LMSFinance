@@ -1,0 +1,44 @@
+﻿@model LMSFinance.Models.History
+@{
+    ViewBag.Title = "History";
+}
+
+<h1>History</h1>
+
+<h3>Receipt</h3>
+@using (Html.BeginForm())
+{
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Collected Date</th>
+                <th>Student Name</th>
+                <th>Collecter</th>
+                <th>Total Fee</th>
+                <th>Discount Object</th>
+                <th>Fee</th>
+            </tr>
+        </thead>
+        <tbody>
+           @foreach (var item in Model.ReceiptList)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.NO)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CollectedDate)</td>
+                    <td>@Html.DisplayFor(modelItem => item.StudentName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Collecter)</td>
+                    <td>@Html.DisplayFor(modelItem => item.TotalSchoolFee)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DiscountObject)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Money)</td>
+                    <td>
+                        <p> @Html.ActionLink("Details", "ReceiptDetails", new { id = item.NO })</p>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+

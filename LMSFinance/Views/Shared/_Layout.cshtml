@@ -1,14 +1,14 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="Style.css" />
+    <link rel="stylesheet" type="text/css" href="StyleSheet.css" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
+    <title>LMS Finance</title>
 </head>
+
 <body style="font-family:'Times New Roman'">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -42,12 +42,14 @@
                         }
                     </li>
                     <li class="dropdown">
-                        <button class="dropbtn">Student Info Adding</button>
+                        <button class="dropbtn">Submit</button>
                         <div class="dropdown-content">
                             <a @Html.ActionLink("School Year", "Index", "StudyYear")</a>
                             <a @Html.ActionLink("Faculty", "Index", "Faculty")</a>
                             <a @Html.ActionLink("Subject Submit", "Index", "SubmitForm")</a>
                             <a @Html.ActionLink("Grade", "Index", "Grade")</a>
+                            <a @Html.ActionLink("Discount", "Index", "Discount")</a>
+                            <a @Html.ActionLink("Prize", "Index", "Present")</a>
                         </div>
                     </li>
 
@@ -55,19 +57,15 @@
                         <button class="dropbtn">School Fee Management</button>
                         <div class="dropdown-content">
                             <a @Html.ActionLink("Subject Fee", "Index", "Subject")</a>
-                            <a @Html.ActionLink("Collect Fee Management", "Index", "Student")</a>
-                            <a @Html.ActionLink("Print Collect Fee Form", "Index", "Grade")</a>
+                            <a @Html.ActionLink("Collect Fee", "Index", "Student")</a>
+                            <a @Html.ActionLink("History", "Index", "History")</a>
                         </div>
-                    </li>
-
-                    <li>
-                        @Html.ActionLink("Student", "Index", "Student")
-                    </li>
-                    <li>
-                        @Html.ActionLink("Subject", "Index", "Subject")
                     </li>
                     <li>
                         @Html.ActionLink("Role", "Index", "Role")
+                    </li>
+                    <li>
+                        @Html.ActionLink("Teacher","Index","Teacher")
                     </li>
                 </ul>
                 @Html.Partial("_LoginPartial")

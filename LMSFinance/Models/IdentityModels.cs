@@ -57,5 +57,10 @@ namespace LMSFinance.Models
 
         public System.Data.Entity.DbSet<LMSFinance.Models.Receipt> Receipts { get; set; }
 
+        public System.Data.Entity.DbSet<LMSFinance.Models.Present> Presents { get; set; }
+
+        public System.Data.Entity.DbSet<LMSFinance.Models.Discount> Discounts { get; set; }
+
+        public System.Data.Entity.DbSet<LMSFinance.Models.Teacher> Teachers { get; set; }
     }
 }

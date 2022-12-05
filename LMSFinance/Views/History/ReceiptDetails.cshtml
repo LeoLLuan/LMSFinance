@@ -1,0 +1,57 @@
+﻿@model LMSFinance.Models.Receipt
+
+@{
+    ViewBag.Title = "FeeCollectDetails";
+}
+
+<h2>Receipt Info</h2>
+
+@using (Html.BeginForm())
+{
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Collecter</th>
+                    <th>Student Name</th>
+                    <th>Fee Per Unit</th>
+                    <th>Total Duration</th>
+                    <th>Total Fee</th>
+                    <th>Method</th>
+                    <th>Discount Object</th>
+                    <th>Premium</th>
+                    <th>Premium Type</th>
+                    <th>Sub-Fee Check</th>
+                    <th>Sub-Fee</th>
+                    <th>Description</th>
+                    <th>Collected Date</th>
+                    <th>Fee</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Html.DisplayFor(model => model.NO)</td>
+                    <td>@Html.DisplayFor(model => model.Collecter)</td>
+                    <td>@Html.DisplayFor(model => model.StudentName)</td>
+                    <td>@Html.DisplayFor(model => model.FeePerUnit)</td>
+                    <td>@Html.DisplayFor(model => model.TotalDuration)</td>
+                    <td>@Html.DisplayFor(model => model.TotalSchoolFee)</td>
+                    <td>@Html.DisplayFor(model => model.CollectMethod)</td>
+                    <td>@Html.DisplayFor(model => model.DiscountObject)</td>
+                    <td>@Html.DisplayFor(model => model.Sale)</td>
+                    <td>@Html.DisplayFor(model => model.SaleType)</td>
+                    <td>@Html.DisplayFor(model => model.TotalSubFeeCheck)</td>
+                    <td>@Html.DisplayFor(model => model.TotalSubFee)</td>
+                    <td>@Html.DisplayFor(model => model.SubFeeDescription)</td>
+                    <td>@Html.DisplayFor(model => model.CollectedDate)</td>
+                    <td>@Html.DisplayFor(model => model.Money)</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="form-group">
+            <a class="btn btn-primary" @Html.ActionLink("Back to History", "Index")
+        </div>
+    </div>
+}
+

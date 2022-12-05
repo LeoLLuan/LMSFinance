@@ -44,7 +44,7 @@
         <div class="col-md-10">
             <div class="checkbox">
                 @Html.DropDownListFor(m => m.ClassName, (IEnumerable<SelectListItem>
-                              )(new[] {
+                                   )(new[] {
                     new SelectListItem() { Text = "6A" },
                     new SelectListItem() { Text = "6B" },
                     new SelectListItem() { Text = "6C" },
@@ -69,7 +69,7 @@
                     new SelectListItem() { Text = "9D" },
                     new SelectListItem() { Text = "9E" },
                     new SelectListItem() { Text = "9F" },
-                              }), "Select Class", new { @class = "form-control" })
+                                   }), "Select Class", new { @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.ClassName, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -86,25 +86,8 @@
     <div class="form-group">
         <div class="control-label col-md-2">Object</div>
         <div class="col-md-10">
-            <div class="checkbox">
-                @Html.DropDownListFor(m => m.Object, (IEnumerable<SelectListItem>
-                              )(new[] {
-                    new SelectListItem() { Text = "None" },
-                    new SelectListItem() { Text = "10%" },
-                    new SelectListItem() { Text = "20%" },
-                    new SelectListItem() { Text = "25%" },
-                    new SelectListItem() { Text = "30%" },
-                    new SelectListItem() { Text = "40%" },
-                    new SelectListItem() { Text = "50%" },
-                    new SelectListItem() { Text = "60%" },
-                    new SelectListItem() { Text = "70%" },
-                    new SelectListItem() { Text = "75%" },
-                    new SelectListItem() { Text = "80%" },
-                    new SelectListItem() { Text = "90%" },
-                    new SelectListItem() { Text = "100%" },
-                              }), "Select Object", new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Object, "", new { @class = "text-danger" })
-            </div>
+            @Html.DropDownListFor(m => m.Object, new SelectList(ViewBag.Objects, "Value", "Text"), "Select Object", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Object, "", new { @class = "text-danger" })
         </div>
     </div>
 

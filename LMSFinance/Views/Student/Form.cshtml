@@ -1,14 +1,11 @@
 ﻿@model LMSFinance.Models.FormModel
 
-@{
-    ViewBag.Title = "Form";
-}
 
-<h2>Form</h2>
 @using (Html.BeginForm())
 {
+    @Html.AntiForgeryToken()
     <div>
-        <h5> Student Info</h5>
+        <h3> Student Info</h3>
         <table class="table">
             <thead>
                 <tr>
@@ -36,14 +33,16 @@
         </table>
     </div>
     <div>
-        <h5>Submitted Subject</h5>
+        <h3>Submitted Subject</h3>
         <table class="table">
             <thead>
-            <th>Subject ID</th>
-            <th>Subject Name</th>
-            <th>Duration</th>
-            <th>Unit</th>
-            <th>Fee</th>
+                <tr>
+                    <th>Subject ID</th>
+                    <th>Subject Name</th>
+                    <th>Duration</th>
+                    <th>Unit</th>
+                    <th>Fee</th>
+                </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model.Subjectss)
@@ -59,30 +58,81 @@
             </tbody>
         </table>
     </div>
-    <div>
-        <h5>Claimed Fee Receipt</h5>
-        <table class="table">
-            <thead>
-            <th>Total Duration</th>
-            <th>Fee Per Unit</th>
-            <th>Total School Fee</th>
-            <th>DiscountObject</th>
-            <th>CollectedDate</th>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.Receipts)
-                {
-                    <tr>
-                        <td>@Html.DisplayFor(modelItem => item.TotalDuration)</td>
-                        <td>@Html.DisplayFor(modelItem => item.FeePerUnit)</td>
-                        <td>@Html.DisplayFor(modelItem => item.TotalSchoolFee)</td>
-                        <td>@Html.DisplayFor(modelItem => item.DiscountObject)</td>
-                        <td>@Html.DisplayFor(modelItem => item.CollectedDate)</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
 }
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <h3>Claimed Fee Receipt</h3>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <table class="table">
+         <thead>
+             <tr>
+                 <th>Duration</th>
+                 <th>Fee Per Unit</th>
+                 <th>Shool Fee</th>
+                 <th>Collect Method</th>
+                 <th>Discount Object</th>
+                 <th>Discount Check</th>
+                 <th>Discount Type</th>
+                 <th>Sub-Fee Check</th>
+                 <th>Sub-Fee</th>
+                 <th>Sub-Fee Description</th>
+                 <th>Collected Date</th>
+                 <th>Money</th>
+             </tr>
+         </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => Model.Receipt.TotalDuration, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.DisplayFor(model => Model.Receipt.FeePerUnit, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.DisplayFor(model => Model.Receipt.TotalSchoolFee, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.EditorFor(model => Model.Receipt.CollectMethod, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => Model.Receipt.CollectMethod, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.DisplayFor(model => Model.Receipt.DiscountObject, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.EditorFor(model => Model.Receipt.Sale)
+                    @Html.ValidationMessageFor(model => Model.Receipt.Sale, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.DropDownListFor(modelItem => Model.Receipt.SaleType, new SelectList(ViewBag.Present, "Value", "Text"), "Select Prize", new { @class = "form-control" })
+                </td>
+                <td>
+                    @Html.EditorFor(modelItem => Model.Receipt.TotalSubFeeCheck)
+                    @Html.ValidationMessageFor(modelItem => Model.Receipt.TotalSubFeeCheck, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(modelItem => Model.Receipt.TotalSubFee, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(modelItem => Model.Receipt.TotalSubFee, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(modelItem => Model.Receipt.SubFeeDescription, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(modelItem => Model.Receipt.SubFeeDescription, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.DisplayFor(model => Model.Receipt.CollectedDate, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.DisplayFor(model => Model.Receipt.Money, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+            </tr>
+    </tbody>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+             <input type="submit" value="Print" class="btn btn-primary" />
+        </div>
+    </div>
+</table>
+}
+
 
 
