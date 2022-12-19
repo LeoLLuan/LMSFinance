@@ -1,75 +1,129 @@
-﻿@model IEnumerable<LMSFinance.Models.Teacher>
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<LMSFinance.Models.Teacher>
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Index</h2>
-
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+
+@using (Html.BeginForm())
+{
+    <form method="get" actions="/Teacher/Index">
+        <p>
+            <input type="submit" value="Search" class="btn btn-primary" />
+            <a class="btn btn-primary" href="~/Teacher/Index">All Teacher</a>
+        </p>
+    </form>
+}
+
+<div class="btn-group">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        Select Action
+    </button>
+    <div class="dropdown-menu" style="text-align: center">
+        <p class="dropdown-item">
+            @Html.ActionLink("Export Excel", "ExportExcel")
+        </p>
+        <p class="dropdown-item">
+            @Html.ActionLink("Export CSV", "ExportCSV")
+        </p>
+    </div>
+</div>
+
+<p></p>
+
 <table class="table">
     <tr>
         <th>
             Teacher ID
+            @Html.ActionLink("↑", "Index")
+            @Html.ActionLink("↓", "Index", new { sortOrder = ViewBag.IdDesSortParm })
         </th>
         <th>
             Name
+            @Html.ActionLink("↑", "Index", new { sortOrder = ViewBag.NameAsSortParm })
+            @Html.ActionLink("↓", "Index", new { sortOrder = ViewBag.NameDesSortParm })
         </th>
         <th>
             Code
+            @Html.ActionLink("↑", "Index", new { sortOrder = ViewBag.CodeAsSortParm })
+            @Html.ActionLink("↓", "Index", new { sortOrder = ViewBag.CodeDesSortParm })
         </th>
         <th>
             Role
+            @Html.ActionLink("↑", "Index", new { sortOrder = ViewBag.RoleAsSortParm })
+            @Html.ActionLink("↓", "Index", new { sortOrder = ViewBag.RoleDesSortParm })
         </th>
         <th>
             Contract Type
+            @Html.ActionLink("↑", "Index", new { sortOrder = ViewBag.ContractAsSortParm })
+            @Html.ActionLink("↓", "Index", new { sortOrder = ViewBag.ContractDesSortParm })
         </th>
         <th>
             Starting Date
+            @Html.ActionLink("↑", "Index", new { sortOrder = ViewBag.StDateAsSortParm })
+            @Html.ActionLink("↓", "Index", new { sortOrder = ViewBag.StDateDesSortParm })
         </th>
         <th>
             Absence
+            @Html.ActionLink("↑", "Index", new { sortOrder = ViewBag.AbsenceAsSortParm })
+            @Html.ActionLink("↓", "Index", new { sortOrder = ViewBag.AbsenceDesSortParm })
         </th>
         <th>
             Status
+            @Html.ActionLink("↑", "Index", new { sortOrder = ViewBag.StatusAsSortParm })
+            @Html.ActionLink("↓", "Index", new { sortOrder = ViewBag.StatusDesSortParm })
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.TeacherId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TeacherName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Code)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Role)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ContractType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StartingDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LeaveDay)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TeacherId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.TeacherId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.TeacherId })
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TeacherId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TeacherName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Role)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContractType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartingDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LeaveDay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td class="btn-group dropright">
+                <div class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    ⋮
+                </div>
+                <div class="dropdown-menu" style="text-align: center">
+                    <p>@Html.ActionLink("Edit", "Edit", new { id = item.TeacherId })</p>
+                    <p>@Html.ActionLink("Details", "Details", new { id = item.TeacherId })</p>
+                    <p>@Html.ActionLink("Delete", "Delete", new { id = item.TeacherId })</p>
+                </div>
+            </td>
+        </tr>
+    }
 </table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+

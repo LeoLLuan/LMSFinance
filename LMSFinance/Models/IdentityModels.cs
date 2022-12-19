@@ -62,5 +62,9 @@ namespace LMSFinance.Models
         public System.Data.Entity.DbSet<LMSFinance.Models.Discount> Discounts { get; set; }
 
         public System.Data.Entity.DbSet<LMSFinance.Models.Teacher> Teachers { get; set; }
+
+        public System.Data.Entity.DbSet<LMSFinance.Models.Absence> Absences { get; set; }
+
+        public System.Data.Entity.DbSet<LMSFinance.Models.TeacherFaculty> TeacherFaculties { get; set; }
     }
 }

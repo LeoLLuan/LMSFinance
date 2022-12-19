@@ -1,0 +1,82 @@
+﻿@model LMSFinance.Models.Absence
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Absence</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Teacher Id
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TeacherId)
+        </dd>
+
+        <dt>
+            Name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TName)
+        </dd>
+
+        <dt>
+            Faculty
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Faculty)
+        </dd>
+
+        <dt>
+            From Date
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FromDate)
+        </dd>
+
+        <dt>
+            End Date
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ToDate)
+        </dd>
+
+        <dt>
+            Total Days
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalDays)
+        </dd>
+
+        <dt>
+            Reason
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Reason)
+        </dd>
+
+        <dt>
+            Status
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <a class="btn btn-primary" @Html.ActionLink("Edit", "Edit", new { id = Model.NO })
+    <a class="btn btn-primary" @Html.ActionLink("Back to List", "Index")
+</p>

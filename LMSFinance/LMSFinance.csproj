@@ -272,6 +272,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AbsenceController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AccountDetailsController.cs" />
     <Compile Include="Controllers\DiscountController.cs" />
@@ -288,6 +289,7 @@
     <Compile Include="Controllers\SubjectDetailController.cs" />
     <Compile Include="Controllers\SubmitFormController.cs" />
     <Compile Include="Controllers\TeacherController.cs" />
+    <Compile Include="Controllers\TeacherFacultyController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -347,7 +349,16 @@
     <Compile Include="Migrations\202212040823332_teacher.designer.cs">
       <DependentUpon>202212040823332_teacher.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202212050814180_absence.cs" />
+    <Compile Include="Migrations\202212050814180_absence.designer.cs">
+      <DependentUpon>202212050814180_absence.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202212081024277_teacherfaculty.cs" />
+    <Compile Include="Migrations\202212081024277_teacherfaculty.designer.cs">
+      <DependentUpon>202212081024277_teacherfaculty.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Absence.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Discount.cs" />
     <Compile Include="Models\Faculty.cs" />
@@ -365,6 +376,7 @@
     <Compile Include="Models\SubjectDetail.cs" />
     <Compile Include="Models\SubmitForm.cs" />
     <Compile Include="Models\Teacher.cs" />
+    <Compile Include="Models\TeacherFaculty.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -472,6 +484,14 @@
     <Content Include="Views\Teacher\Details.cshtml" />
     <Content Include="Views\Teacher\Edit.cshtml" />
     <Content Include="Views\Teacher\Index.cshtml" />
+    <Content Include="Views\Absence\Create.cshtml" />
+    <Content Include="Views\Absence\Delete.cshtml" />
+    <Content Include="Views\Absence\Details.cshtml" />
+    <Content Include="Views\Absence\Edit.cshtml" />
+    <Content Include="Views\Absence\Index.cshtml" />
+    <Content Include="Views\TeacherFaculty\Create.cshtml" />
+    <Content Include="Views\TeacherFaculty\Delete.cshtml" />
+    <Content Include="Views\TeacherFaculty\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -529,6 +549,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202212040823332_teacher.resx">
       <DependentUpon>202212040823332_teacher.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212050814180_absence.resx">
+      <DependentUpon>202212050814180_absence.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212081024277_teacherfaculty.resx">
+      <DependentUpon>202212081024277_teacherfaculty.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

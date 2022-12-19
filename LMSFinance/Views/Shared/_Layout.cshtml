@@ -31,18 +31,17 @@
                     <li>
                         @if (User.Identity.IsAuthenticated)
                         {
-                            if (User.IsInRole("Kế Toán Trưởng"))
-                            {
-                                @Html.ActionLink("Student", "Index", "Student")
-                            }
-                            else if (User.IsInRole("Kế Toán Ghi Danh"))
+                            if (User.IsInRole("Kế Toán Trưởng") || User.IsInRole("Kế Toán Ghi Danh"))
                             {
                                 @Html.ActionLink("Student", "Index", "Student")
                             }
                         }
                     </li>
+                    <li>
+                        @Html.ActionLink("Role", "Index", "Role")
+                    </li>
                     <li class="dropdown">
-                        <button class="dropbtn">Submit</button>
+                        <button class="dropbtn">Student Submit</button>
                         <div class="dropdown-content">
                             <a @Html.ActionLink("School Year", "Index", "StudyYear")</a>
                             <a @Html.ActionLink("Faculty", "Index", "Faculty")</a>
@@ -61,11 +60,18 @@
                             <a @Html.ActionLink("History", "Index", "History")</a>
                         </div>
                     </li>
-                    <li>
-                        @Html.ActionLink("Role", "Index", "Role")
+                    <li class="dropdown">
+                        <button class="dropbtn">Teacher Submit</button>
+                        <div class="dropdown-content">
+                            <a @Html.ActionLink("Absence", "Index", "Absence")</a>
+                            <a @Html.ActionLink("Faculty", "Index", "TeacherFaculty")</a>
+                        </div>
                     </li>
-                    <li>
-                        @Html.ActionLink("Teacher","Index","Teacher")
+                    <li class="dropdown">
+                        <button class="dropbtn">Salary Management</button>
+                        <div class="dropdown-content">
+                            <a @Html.ActionLink("Teacher", "Index", "Teacher")</a>
+                        </div>
                     </li>
                 </ul>
                 @Html.Partial("_LoginPartial")
