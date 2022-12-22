@@ -22,57 +22,56 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>
-                        @if (User.IsInRole("Kế Toán Trưởng"))
-                        {
+                    @if (User.IsInRole("Kế Toán Trưởng") || User.IsInRole("Admin"))
+                    {
+                        <li>
                             @Html.ActionLink("Role", "Index", "Role")
-                        }
-                    </li>
-                    <li>
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            if (User.IsInRole("Kế Toán Trưởng") || User.IsInRole("Kế Toán Ghi Danh"))
-                            {
-                                @Html.ActionLink("Student", "Index", "Student")
-                            }
-                        }
-                    </li>
-                    <li>
-                        @Html.ActionLink("Role", "Index", "Role")
-                    </li>
-                    <li class="dropdown">
-                        <button class="dropbtn">Student Submit</button>
-                        <div class="dropdown-content">
-                            <a @Html.ActionLink("School Year", "Index", "StudyYear")</a>
-                            <a @Html.ActionLink("Faculty", "Index", "Faculty")</a>
-                            <a @Html.ActionLink("Subject Submit", "Index", "SubmitForm")</a>
-                            <a @Html.ActionLink("Grade", "Index", "Grade")</a>
-                            <a @Html.ActionLink("Discount", "Index", "Discount")</a>
-                            <a @Html.ActionLink("Prize", "Index", "Present")</a>
-                        </div>
-                    </li>
-
-                    <li class="dropdown">
-                        <button class="dropbtn">School Fee Management</button>
-                        <div class="dropdown-content">
-                            <a @Html.ActionLink("Subject Fee", "Index", "Subject")</a>
-                            <a @Html.ActionLink("Collect Fee", "Index", "Student")</a>
-                            <a @Html.ActionLink("History", "Index", "History")</a>
-                        </div>
-                    </li>
-                    <li class="dropdown">
-                        <button class="dropbtn">Teacher Submit</button>
-                        <div class="dropdown-content">
-                            <a @Html.ActionLink("Absence", "Index", "Absence")</a>
-                            <a @Html.ActionLink("Faculty", "Index", "TeacherFaculty")</a>
-                        </div>
-                    </li>
-                    <li class="dropdown">
-                        <button class="dropbtn">Salary Management</button>
-                        <div class="dropdown-content">
-                            <a @Html.ActionLink("Teacher", "Index", "Teacher")</a>
-                        </div>
-                    </li>
+                        </li>
+                    }
+                    @if (User.IsInRole("Kế Toán Trưởng") || User.IsInRole("Kế Toán Ghi Danh"))
+                    {
+                        <li class="dropdown">
+                            <button class="dropbtn">Student Submit</button>
+                            <div class="dropdown-content">
+                                @Html.ActionLink("School Year", "Index", "StudyYear")
+                                @Html.ActionLink("Faculty", "Index", "Faculty")
+                                @Html.ActionLink("Subject Submit", "Index", "SubmitForm")
+                                @Html.ActionLink("Grade", "Index", "Grade")
+                                @Html.ActionLink("Discount", "Index", "Discount")
+                                @Html.ActionLink("Prize", "Index", "Present")
+                            </div>
+                        </li>
+                    }
+                    @if (User.IsInRole("Kế Toán Trưởng") || User.IsInRole("Kế Toán Ghi Danh") || User.IsInRole("Admin"))
+                    {
+                        <li class="dropdown">
+                            <button class="dropbtn">School Fee Management</button>
+                            <div class="dropdown-content">
+                                @Html.ActionLink("Subject Fee", "Index", "Subject")
+                                @Html.ActionLink("Collect Fee", "Index", "Student")
+                                @Html.ActionLink("History", "Index", "History")
+                            </div>
+                        </li>
+                    }
+                    @if (User.IsInRole("Kế Toán Trưởng") || User.IsInRole("Kế Toán Tiền Lương"))
+                    {
+                        <li class="dropdown">
+                            <button class="dropbtn">Teacher Submit</button>
+                            <div class="dropdown-content">
+                                @Html.ActionLink("Absence", "Index", "Absence")
+                                @Html.ActionLink("Faculty", "Index", "TeacherFaculty")
+                            </div>
+                        </li>
+                    }
+                    @if (User.IsInRole("Kế Toán Trưởng") || User.IsInRole("Kế Toán Tiền Lương"))
+                    {
+                        <li class="dropdown">
+                            <button class="dropbtn">Salary Management</button>
+                            <div class="dropdown-content">
+                                @Html.ActionLink("Teacher", "Index", "Teacher")
+                            </div>
+                        </li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

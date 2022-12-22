@@ -365,6 +365,7 @@
     <Compile Include="Models\FormModel.cs" />
     <Compile Include="Models\Grade.cs" />
     <Compile Include="Models\History.cs" />
+    <Compile Include="Models\Home.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Present.cs" />

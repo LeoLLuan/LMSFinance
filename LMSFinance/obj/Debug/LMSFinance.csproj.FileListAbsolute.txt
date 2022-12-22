@@ -2179,10 +2179,10 @@ C:\Users\USER\Downloads\Hoàn Thành\LMSFinance\obj\Debug\LMSFinance.Migrations.
 C:\Users\USER\Downloads\Hoàn Thành\LMSFinance\obj\Debug\LMSFinance.Migrations.presents.resources
 C:\Users\USER\Downloads\Hoàn Thành\LMSFinance\obj\Debug\LMSFinance.Migrations.Discount.resources
 C:\Users\USER\Downloads\Hoàn Thành\LMSFinance\obj\Debug\LMSFinance.Migrations.teacher.resources
+C:\Users\USER\Downloads\Hoàn Thành\LMSFinance\obj\Debug\LMSFinance.Migrations.absence.resources
+C:\Users\USER\Downloads\Hoàn Thành\LMSFinance\obj\Debug\LMSFinance.Migrations.teacherfaculty.resources
 C:\Users\USER\Downloads\Hoàn Thành\LMSFinance\obj\Debug\LMSFinance.csproj.GenerateResource.cache
 C:\Users\USER\Downloads\Hoàn Thành\LMSFinance\obj\Debug\LMSFinance.csproj.CoreCompileInputs.cache
 C:\Users\USER\Downloads\Hoàn Thành\LMSFinance\obj\Debug\LMSFinance.csproj.CopyComplete
 C:\Users\USER\Downloads\Hoàn Thành\LMSFinance\obj\Debug\LMSFinance.dll
 C:\Users\USER\Downloads\Hoàn Thành\LMSFinance\obj\Debug\LMSFinance.pdb
-C:\Users\USER\Downloads\Hoàn Thành\LMSFinance\obj\Debug\LMSFinance.Migrations.absence.resources
-C:\Users\USER\Downloads\Hoàn Thành\LMSFinance\obj\Debug\LMSFinance.Migrations.teacherfaculty.resources

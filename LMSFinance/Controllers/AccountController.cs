@@ -19,7 +19,7 @@ namespace LMSFinance.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private ApplicationRoleManager _roleManager;
-
+        private ApplicationDbContext db = new ApplicationDbContext();
         public AccountController()
         {
         }
@@ -73,6 +73,7 @@ namespace LMSFinance.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
+
             return View();
         }
 
@@ -85,6 +86,7 @@ namespace LMSFinance.Controllers
         {
             if (!ModelState.IsValid)
             {
+
                 return View(model);
             }
 
