@@ -45,9 +45,9 @@ namespace LMSFinance.Controllers
                 }
             }
 
-            d50 = model.Dis50 = Math.Round((double)(model.D50 * 100) / model.DisStuNum);
-            d70 = model.Dis70 = Math.Round((double)(model.D70 * 100) / model.DisStuNum);
-            d100 = model.Dis100 = Math.Round((double)(model.D100 * 100) / model.DisStuNum);
+            d50  = Math.Round((double)(model.D50 * 100) / model.DisStuNum);
+            d70  = Math.Round((double)(model.D70 * 100) / model.DisStuNum);
+            d100 = Math.Round((double)(model.D100 * 100) / model.DisStuNum);
 
             return View(model);
         }

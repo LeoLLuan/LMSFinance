@@ -20,12 +20,6 @@ namespace LMSFinance.Models
 
         public int D100 { get; set; }
 
-        public double Dis50 { get; set; }
-
-        public double Dis70 { get; set; }
-
-        public double Dis100 { get; set; }
-
         public List<ChartFields> ChartData { get; set; }
     }
     public class ChartFields

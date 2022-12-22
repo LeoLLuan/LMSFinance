@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Subject";
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @using (Html.BeginForm())
@@ -14,7 +14,7 @@
             width:fit-content;
             height:fit-content;
         }
-        h2 {
+        h3 {
             color: orangered;
         }
 
@@ -22,17 +22,17 @@
 
     <div class="ac">
         <h4> Amount Student: 
-            <h2>
+            <h3>
                 <b>@Model.IdStuNum</b>
-            </h2>
+            </h3>
         </h4>
     </div>
 
     <div class="ac">
         <h4> Discount Student: 
-            <h2>
+            <h3>
                 <b>@Model.DisStuNum</b>
-            </h2>
+            </h3>
         </h4>
     </div>
     <img src="@Url.Action("pietypechart")" alt="Pie chart" />
